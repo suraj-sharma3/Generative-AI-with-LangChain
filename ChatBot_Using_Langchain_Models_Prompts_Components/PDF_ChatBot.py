@@ -1,4 +1,4 @@
-from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from dotenv import load_dotenv
 import fitz  # PyMuPDF
@@ -20,12 +20,7 @@ pdf_text = extract_pdf_text(pdf_path)
 pdf_text = pdf_text[:5000]  # You can increase this based on model token limit
 
 # Create the model endpoint
-llm = HuggingFaceEndpoint(
-    repo_id="deepseek-ai/DeepSeek-R1",
-    task="text-generation"
-)
-
-model = ChatHuggingFace(llm=llm)
+model = ChatOpenAI(model = "o4-mini", temperature=0, max_tokens=100)
 
 # System message with PDF content embedded
 chat_history = [
